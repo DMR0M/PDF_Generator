@@ -9,6 +9,13 @@ pdf.set_auto_page_break(auto=False, margin=0)
 
 df = pd.read_csv('../topics.csv')
 
+
+def add_lines(boundary=31) -> None:
+	for n in range(25):
+		pdf.line(10, boundary, 200, boundary)
+		boundary += 10
+
+
 for idx, row in df.iterrows():
 	pdf.add_page()
 
@@ -23,6 +30,9 @@ for idx, row in df.iterrows():
 	# x1 y1 x2 y2
 	pdf.line(10, 21, 200, 21)
 
+	# add lines function
+	add_lines()
+
 	# ln adds empty break lines
 	pdf.ln(260)
 
@@ -34,7 +44,7 @@ for idx, row in df.iterrows():
 	# Iterate pages for each topic
 	for i in range(row['Pages'] - 1):
 		pdf.add_page()
-
+		add_lines()
 		# Add Footer
 		pdf.ln(270)
 		pdf.set_font(family='Times', style='I', size=10)
